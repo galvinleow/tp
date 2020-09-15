@@ -35,13 +35,22 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
+        /*
+            Regex expression: Spilt command into 2 group.
+            First Group - anything before 1st white space
+            Second Group - all other details
+        */
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+
+        // Check if format is correct, if wrong throw exception
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        // Command word hardcoded in each individual command class.
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
