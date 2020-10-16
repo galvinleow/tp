@@ -40,10 +40,10 @@ public class BreakdownExpenseCommand extends Command {
     private final Year year;
 
     /**
-     * Constructor for breakdown of expense.
+     * Constructor for breakdown of expenses.
      *
-     * @param month month of revenue, value from 1-12
-     * @param year year of revenue, value > 0
+     * @param month month of expenses, value from 1-12
+     * @param year year of expenses, value > 0
      */
     public BreakdownExpenseCommand(Month month, Year year) {
         this.month = month;

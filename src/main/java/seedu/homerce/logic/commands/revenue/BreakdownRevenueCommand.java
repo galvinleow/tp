@@ -49,7 +49,7 @@ public class BreakdownRevenueCommand extends Command {
     public CommandResult execute(Model model, HistoryManager historyManager) {
         requireNonNull(model);
         List<Revenue> filteredRevenueList = createFilteredRevenue(model);
-        Map<String, Double> revenueMap = breakdownExpenses(filteredRevenueList);
+        Map<String, Double> revenueMap = breakdownRevenues(filteredRevenueList);
         String revenueMapString = revenueMapToString(revenueMap);
         return new CommandResult(String.format(MESSAGE_SUCCESS, revenueMapString));
     }
@@ -57,7 +57,7 @@ public class BreakdownRevenueCommand extends Command {
     /**
      * Creates a Hashmap where key = Service Title and value = Total Revenue Amount per Service.
      */
-    private Map<String, Double> breakdownExpenses(List<Revenue> revenueList) {
+    private Map<String, Double> breakdownRevenues(List<Revenue> revenueList) {
         requireNonNull(revenueList);
         if (revenueList.isEmpty()) {
             return new HashMap<>();

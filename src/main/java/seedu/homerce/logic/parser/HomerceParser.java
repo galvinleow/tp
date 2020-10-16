@@ -58,7 +58,7 @@ import seedu.homerce.logic.parser.expense.BreakdownExpenseCommandParser;
 import seedu.homerce.logic.parser.expense.DeleteExpenseCommandParser;
 import seedu.homerce.logic.parser.expense.EditExpenseCommandParser;
 import seedu.homerce.logic.parser.expense.FindExpenseCommandParser;
-import seedu.homerce.logic.parser.revenue.BreakdownRevenueParser;
+import seedu.homerce.logic.parser.revenue.BreakdownRevenueCommandParser;
 import seedu.homerce.logic.parser.revenue.FindRevenueCommandParser;
 import seedu.homerce.logic.parser.service.AddServiceCommandParser;
 import seedu.homerce.logic.parser.service.DeleteServiceCommandParser;
@@ -166,7 +166,7 @@ public class HomerceParser {
             return new ClearRevenueCommand();
 
         case BreakdownRevenueCommand.COMMAND_WORD:
-            return new BreakdownRevenueParser().parse(arguments);
+            return new BreakdownRevenueCommandParser().parse(arguments);
 
         case AddAppointmentCommand.COMMAND_WORD:
             return new AddAppointmentCommandParser().parse(arguments);

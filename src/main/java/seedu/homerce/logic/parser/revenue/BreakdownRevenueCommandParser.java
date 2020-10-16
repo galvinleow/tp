@@ -20,7 +20,7 @@ import seedu.homerce.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new BreakdownRevenueCommand object
  */
-public class BreakdownRevenueParser implements Parser<BreakdownRevenueCommand> {
+public class BreakdownRevenueCommandParser implements Parser<BreakdownRevenueCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the BreakdownRevenueCommand
