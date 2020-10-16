@@ -9,6 +9,7 @@ import static seedu.homerce.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
 import seedu.homerce.logic.commands.exceptions.CommandException;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.client.Client;
 
@@ -46,7 +47,7 @@ public class AddClientCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, HistoryManager historyManager) throws CommandException {
         requireNonNull(model);
 
         if (model.hasClient(toAdd)) {

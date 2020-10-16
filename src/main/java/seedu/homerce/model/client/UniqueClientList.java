@@ -3,6 +3,7 @@ package seedu.homerce.model.client;
 import static java.util.Objects.requireNonNull;
 import static seedu.homerce.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -154,5 +155,19 @@ public class UniqueClientList implements Iterable<Client> {
             }
         }
         return true;
+    }
+
+    /**
+     * Creates a deep copy of all the clients in the UniqueClientList.
+     *
+     * @return a list of clients.
+     */
+    public List<Client> deepCopy() {
+        Iterator<Client> iterator = this.iterator();
+        List<Client> clientsCopy = new ArrayList<>();
+        while (iterator.hasNext()) {
+            clientsCopy.add(iterator.next());
+        }
+        return clientsCopy;
     }
 }

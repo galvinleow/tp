@@ -109,4 +109,16 @@ public class AppointmentManager implements ReadOnlyAppointmentManager {
     public int hashCode() {
         return Objects.hash(appointments);
     }
+
+    /**
+     * Creates a deep copy of all the appointments in the unique list of appointments.
+     *
+     * @return an appointment manager with a list of deep copied appointments.
+     */
+    public AppointmentManager deepCopy() {
+        List<Appointment> internalListCopy = appointments.deepCopy();
+        AppointmentManager appointmentManagerCopy = new AppointmentManager();
+        appointmentManagerCopy.setAppointments(internalListCopy);
+        return appointmentManagerCopy;
+    }
 }

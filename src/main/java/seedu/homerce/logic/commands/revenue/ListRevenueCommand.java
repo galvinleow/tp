@@ -5,6 +5,7 @@ import static seedu.homerce.model.Model.PREDICATE_SHOW_ALL_REVENUE;
 
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 
 /**
@@ -18,7 +19,7 @@ public class ListRevenueCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, HistoryManager historyManager) {
         requireNonNull(model);
         model.updateFilteredRevenueList(PREDICATE_SHOW_ALL_REVENUE);
         return new CommandResult(MESSAGE_SUCCESS);

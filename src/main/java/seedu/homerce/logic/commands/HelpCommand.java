@@ -1,5 +1,6 @@
 package seedu.homerce.logic.commands;
 
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 
 /**
@@ -15,7 +16,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, HistoryManager historyManager) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }

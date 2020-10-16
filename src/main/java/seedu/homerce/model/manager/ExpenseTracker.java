@@ -105,5 +105,16 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         return Objects.hash(expenses);
     }
 
+    /**
+     * Creates a deep copy of all the expenses in the list of expenses.
+     *
+     * @return a list of expenses.
+     */
+    public ExpenseTracker deepCopy() {
+        List<Expense> internalListCopy = expenses.deepCopy();
+        ExpenseTracker expenseManagerCopy = new ExpenseTracker();
+        expenseManagerCopy.setExpenses(internalListCopy);
+        return expenseManagerCopy;
+    }
 }
 

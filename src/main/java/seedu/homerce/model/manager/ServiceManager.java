@@ -100,8 +100,8 @@ public class ServiceManager implements ReadOnlyServiceManager {
     @Override
     public String toString() {
         return "Service Manager:\n"
-                + services.stream().map(Service::toString).collect(Collectors.joining("\n"))
-                + "\n Total number of activities: " + services.size();
+            + services.stream().map(Service::toString).collect(Collectors.joining("\n"))
+            + "\n Total number of activities: " + services.size();
 
     }
 
@@ -113,8 +113,8 @@ public class ServiceManager implements ReadOnlyServiceManager {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ServiceManager // instanceof handles nulls
-                && services.equals(((ServiceManager) other).services));
+            || (other instanceof ServiceManager // instanceof handles nulls
+            && services.equals(((ServiceManager) other).services));
     }
 
     @Override
@@ -125,5 +125,17 @@ public class ServiceManager implements ReadOnlyServiceManager {
     public Service getServiceByServiceCode(ServiceCode serviceCode) {
         requireNonNull(serviceCode);
         return services.getServiceByServiceCode(serviceCode);
+    }
+
+    /**
+     * Creates a deep copy of all the services in the unique list of services.
+     *
+     * @return a service manager with a list of deep copied services.
+     */
+    public ServiceManager deepCopy() {
+        List<Service> internalListCopy = services.deepCopy();
+        ServiceManager serviceManagerCopy = new ServiceManager();
+        serviceManagerCopy.setServices(internalListCopy);
+        return serviceManagerCopy;
     }
 }

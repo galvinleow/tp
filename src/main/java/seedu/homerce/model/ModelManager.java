@@ -79,9 +79,34 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given clientManager and userPrefs.
      */
+    public ModelManager(ClientManager clientManager, ServiceManager serviceManager,
+                        RevenueTracker revenueTracker, ExpenseTracker expenseTracker,
+                        AppointmentManager appointmentManager, UserPrefs userPrefs) {
+        super();
+        requireAllNonNull(clientManager, serviceManager, revenueTracker, expenseTracker);
+
+        logger.fine("Creating deep copy of Model Manager: ");
+
+        this.clientManager = clientManager;
+        this.userPrefs = userPrefs;
+        this.serviceManager = serviceManager;
+        this.appointmentManager = appointmentManager;
+        this.revenueTracker = revenueTracker;
+        this.expenseTracker = expenseTracker;
+
+        filteredClients = new FilteredList<>(this.clientManager.getClientList());
+        filteredExpenses = new FilteredList<>(this.expenseTracker.getExpenseList());
+        filteredServices = new FilteredList<>(this.serviceManager.getServiceList());
+        filteredAppointments = new FilteredList<>(this.appointmentManager.getAppointmentList());
+        filteredRevenue = new FilteredList<>(this.revenueTracker.getRevenueList());
+    }
+
+    /**
+     * Initializes a ModelManager with the given clientManager and userPrefs.
+     */
     public ModelManager() {
         this(new UserPrefs(), new ClientManager(), new ServiceManager(), new RevenueTracker(), new ExpenseTracker(),
-                new AppointmentManager());
+            new AppointmentManager());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -303,6 +328,12 @@ public class ModelManager implements Model {
         this.serviceManager.resetData(serviceManager);
     }
 
+    @Override
+    public Service getServiceByServiceCode(ServiceCode serviceCode) {
+        requireAllNonNull(serviceCode);
+        return serviceManager.getServiceByServiceCode(serviceCode);
+    }
+
     //=========== RevenueTracker ===============
     @Override
     public void addRevenue(Revenue toAdd) {
@@ -347,10 +378,13 @@ public class ModelManager implements Model {
         return this.revenueTracker;
     }
 
+    /**
+     * Replaces revenueTracker data with the data in {@code revenueTracker}.
+     */
     @Override
-    public Service getServiceByServiceCode(ServiceCode serviceCode) {
-        requireAllNonNull(serviceCode);
-        return serviceManager.getServiceByServiceCode(serviceCode);
+    public void setRevenueTracker(ReadOnlyRevenueTracker revenueTracker) {
+        requireNonNull(revenueTracker);
+        this.revenueTracker.resetData(revenueTracker);
     }
 
     //================== AppointmentManager ==================
@@ -398,6 +432,37 @@ public class ModelManager implements Model {
         return appointmentManager.hasAppointment(appointment);
     }
 
+    /**
+     * Replaces serviceManager data with the data in {@code serviceManager}.
+     */
+    @Override
+    public void setAppointmentManager(ReadOnlyAppointmentManager appointmentManager) {
+        requireNonNull(appointmentManager);
+        this.appointmentManager.resetData(appointmentManager);
+    }
+
+    //================== AppointmentManager ==================
+    @Override
+    public void replaceModel(Model previousModel) {
+        this.setClientManager(previousModel.getClientManager());
+        this.setServiceManager(previousModel.getServiceManager());
+        this.setAppointmentManager(previousModel.getAppointmentManager());
+        this.setRevenueTracker(previousModel.getRevenueTracker());
+        this.setExpenseTracker(previousModel.getExpenseTracker());
+    }
+
+    @Override
+    public Model deepCopy() {
+        ClientManager clientManagerCopy = clientManager.deepCopy();
+        ServiceManager serviceManagerCopy = serviceManager.deepCopy();
+        RevenueTracker revenueTrackerCopy = revenueTracker.deepCopy();
+        ExpenseTracker expenseTrackerCopy = expenseTracker.deepCopy();
+        AppointmentManager appointmentManagerCopy = appointmentManager.deepCopy();
+
+        return new ModelManager(clientManagerCopy, serviceManagerCopy, revenueTrackerCopy,
+            expenseTrackerCopy, appointmentManagerCopy, userPrefs);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -413,10 +478,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return clientManager.equals(other.clientManager)
-                && userPrefs.equals(other.userPrefs)
-                && filteredClients.equals(other.filteredClients)
-                && filteredServices.equals(other.filteredServices)
-                && filteredAppointments.equals(other.filteredAppointments)
-                && filteredExpenses.equals(other.filteredExpenses);
+            && userPrefs.equals(other.userPrefs)
+            && filteredClients.equals(other.filteredClients)
+            && filteredServices.equals(other.filteredServices)
+            && filteredAppointments.equals(other.filteredAppointments)
+            && filteredExpenses.equals(other.filteredExpenses);
     }
 }

@@ -9,6 +9,7 @@ import seedu.homerce.commons.core.index.Index;
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
 import seedu.homerce.logic.commands.exceptions.CommandException;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.service.Service;
 
@@ -33,7 +34,7 @@ public class DeleteServiceCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, HistoryManager historyManager) throws CommandException {
         requireNonNull(model);
         List<Service> lastShownList = model.getFilteredServiceList();
 

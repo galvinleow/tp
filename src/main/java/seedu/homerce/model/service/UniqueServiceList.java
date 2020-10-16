@@ -3,6 +3,10 @@ package seedu.homerce.model.service;
 import static java.util.Objects.requireNonNull;
 import static seedu.homerce.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.homerce.model.service.exceptions.ServiceNotFoundException;
 import seedu.homerce.model.util.uniquelist.UniqueList;
 
@@ -27,5 +31,19 @@ public class UniqueServiceList extends UniqueList<Service> {
             }
         }
         throw new ServiceNotFoundException();
+    }
+
+    /**
+     * Creates a deep copy of all the services in the unique list of services.
+     *
+     * @return a list of services.
+     */
+    public List<Service> deepCopy() {
+        Iterator<Service> iterator = this.iterator();
+        List<Service> servicesCopy = new ArrayList<>();
+        while (iterator.hasNext()) {
+            servicesCopy.add(iterator.next());
+        }
+        return servicesCopy;
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
 import seedu.homerce.logic.commands.exceptions.CommandException;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.service.Service;
 import seedu.homerce.model.util.attributes.service.ServiceCodeGenerator;
@@ -44,7 +45,7 @@ public class AddServiceCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, HistoryManager historyManager) throws CommandException {
         requireNonNull(model);
 
         // Generate unique ServiceCode for the Service before adding it to model

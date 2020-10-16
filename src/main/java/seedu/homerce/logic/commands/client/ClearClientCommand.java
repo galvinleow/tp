@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.manager.ClientManager;
 
@@ -17,7 +18,7 @@ public class ClearClientCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, HistoryManager historyManager) {
         requireNonNull(model);
         model.setClientManager(new ClientManager());
         return new CommandResult(MESSAGE_SUCCESS);

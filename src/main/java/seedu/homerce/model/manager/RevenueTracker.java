@@ -110,4 +110,15 @@ public class RevenueTracker implements ReadOnlyRevenueTracker {
         return Objects.hash(revenues);
     }
 
+    /**
+     * Creates a deep copy of all the revenues in the list of revenues.
+     *
+     * @return a list of revenues.
+     */
+    public RevenueTracker deepCopy() {
+        List<Revenue> internalListCopy = revenues.deepCopy();
+        RevenueTracker revenueTrackerCopy = new RevenueTracker();
+        revenueTrackerCopy.setRevenues(internalListCopy);
+        return revenueTrackerCopy;
+    }
 }

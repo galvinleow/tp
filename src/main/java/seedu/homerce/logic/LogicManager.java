@@ -12,6 +12,7 @@ import seedu.homerce.logic.commands.CommandResult;
 import seedu.homerce.logic.commands.exceptions.CommandException;
 import seedu.homerce.logic.parser.HomerceParser;
 import seedu.homerce.logic.parser.exceptions.ParseException;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.appointment.Appointment;
 import seedu.homerce.model.client.Client;
@@ -32,13 +33,15 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final HomerceParser homerceParser;
+    private HistoryManager historyManager;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, HistoryManager historyManager) {
         this.model = model;
         this.storage = storage;
+        this.historyManager = historyManager;
         homerceParser = new HomerceParser();
     }
 
@@ -48,7 +51,11 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = homerceParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+
+        // Model has not been updated by this point
+        historyManager.addToHistory(model, command);
+
+        commandResult = command.execute(model, historyManager);
 
         try {
             storage.saveClientManager(model.getClientManager());

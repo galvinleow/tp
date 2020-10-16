@@ -15,6 +15,7 @@ import seedu.homerce.commons.util.ConfigUtil;
 import seedu.homerce.commons.util.StringUtil;
 import seedu.homerce.logic.Logic;
 import seedu.homerce.logic.LogicManager;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.ModelManager;
 import seedu.homerce.model.ReadOnlyUserPrefs;
@@ -61,6 +62,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected HistoryManager historyManager;
 
     @Override
     public void init() throws Exception {
@@ -85,7 +87,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        historyManager = new HistoryManager();
+
+        logic = new LogicManager(model, storage, historyManager);
 
         ui = new UiManager(logic);
     }

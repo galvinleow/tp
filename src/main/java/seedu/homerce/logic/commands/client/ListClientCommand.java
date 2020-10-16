@@ -5,6 +5,7 @@ import static seedu.homerce.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 
 /**
@@ -18,7 +19,7 @@ public class ListClientCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, HistoryManager historyManager) {
         requireNonNull(model);
         model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
         return new CommandResult(MESSAGE_SUCCESS);

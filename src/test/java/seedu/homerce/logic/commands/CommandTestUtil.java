@@ -15,6 +15,7 @@ import java.util.List;
 import seedu.homerce.commons.core.index.Index;
 import seedu.homerce.logic.commands.client.EditClientCommand;
 import seedu.homerce.logic.commands.exceptions.CommandException;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.client.Client;
 import seedu.homerce.model.client.predicate.NameContainsKeywordsPredicate;
@@ -72,7 +73,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, new HistoryManager());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -102,7 +103,7 @@ public class CommandTestUtil {
         ClientManager expectedClientManager = new ClientManager(actualModel.getClientManager());
         List<Client> expectedFilteredList = new ArrayList<>(actualModel.getFilteredClientList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, new HistoryManager()));
         assertEquals(expectedClientManager, actualModel.getClientManager());
         assertEquals(expectedFilteredList, actualModel.getFilteredClientList());
     }

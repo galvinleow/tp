@@ -3,6 +3,7 @@ package seedu.homerce.model.util.nonuniquelist;
 import static java.util.Objects.requireNonNull;
 import static seedu.homerce.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -94,6 +95,20 @@ public class NonUniqueList<T> implements Iterable<T> {
 
     public int size() {
         return internalList.size();
+    }
+
+    /**
+     * Creates a deep copy of all the non unique list of items.
+     *
+     * @return a list of deep copied items.
+     */
+    public List<T> deepCopy() {
+        Iterator<T> iterator = this.iterator();
+        List<T> itemsCopy = new ArrayList<>();
+        while (iterator.hasNext()) {
+            itemsCopy.add(iterator.next());
+        }
+        return itemsCopy;
     }
 }
 

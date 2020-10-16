@@ -21,6 +21,7 @@ import seedu.homerce.logic.commands.client.AddClientCommand;
 import seedu.homerce.logic.commands.client.ListClientCommand;
 import seedu.homerce.logic.commands.exceptions.CommandException;
 import seedu.homerce.logic.parser.exceptions.ParseException;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.ModelManager;
 import seedu.homerce.model.UserPrefs;
@@ -66,7 +67,10 @@ public class LogicManagerTest {
 
         StorageManager storage = new StorageManager(userPrefsStorage, clientStorage, serviceStorage,
             revenueStorage, expenseStorage, appointmentStorage);
-        logic = new LogicManager(model, storage);
+
+        HistoryManager historyManager = new HistoryManager();
+
+        logic = new LogicManager(model, storage, historyManager);
     }
 
     @Test
@@ -102,7 +106,10 @@ public class LogicManagerTest {
 
         StorageManager storage = new StorageManager(userPrefsStorage, clientStorage, serviceStorage,
             revenueStorage, expenseStorage, appointmentStorage);
-        logic = new LogicManager(model, storage);
+
+        HistoryManager historyManager = new HistoryManager();
+
+        logic = new LogicManager(model, storage, historyManager);
 
         // Execute add command
         String addCommand = AddClientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;

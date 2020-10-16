@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import seedu.homerce.commons.core.Messages;
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.service.Service;
 
@@ -34,7 +35,7 @@ public class FindServiceCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, HistoryManager historyManager) {
         requireNonNull(model);
         model.updateFilteredServiceList(predicate);
         return new CommandResult(
