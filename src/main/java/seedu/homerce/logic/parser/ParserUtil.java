@@ -282,6 +282,7 @@ public class ParserUtil {
             return false;
         }
         int intYear = Integer.parseInt(year);
+        // Create a checker for year
         Year yearObject = Year.of(VALID_YEAR);
         ValueRange range = yearObject.range(ChronoField.YEAR);
         return range.isValidIntValue(intYear);
@@ -293,6 +294,7 @@ public class ParserUtil {
             return false;
         }
         int intMonth = Integer.parseInt(month);
+        // Create checker for month
         Month monthObject = Month.of(VALID_MONTH);
         ValueRange range = monthObject.range(ChronoField.MONTH_OF_YEAR);
         return range.isValidIntValue(intMonth);

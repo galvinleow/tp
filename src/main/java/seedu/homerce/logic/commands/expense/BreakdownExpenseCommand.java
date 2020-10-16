@@ -14,11 +14,15 @@ import java.util.stream.Collectors;
 
 import seedu.homerce.logic.commands.Command;
 import seedu.homerce.logic.commands.CommandResult;
+import seedu.homerce.model.HistoryManager;
 import seedu.homerce.model.Model;
 import seedu.homerce.model.expense.Expense;
 import seedu.homerce.model.expense.predicate.ExpenseMonthPredicate;
 import seedu.homerce.model.expense.predicate.ExpenseYearPredicate;
 
+/**
+ * Breaks down expenses by Tag Name.
+ */
 public class BreakdownExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "breakdownexp";
@@ -36,7 +40,10 @@ public class BreakdownExpenseCommand extends Command {
     private final Year year;
 
     /**
-     * Breaks down expenses by Tag Name.
+     * Constructor for breakdown of expense.
+     *
+     * @param month month of revenue, value from 1-12
+     * @param year year of revenue, value > 0
      */
     public BreakdownExpenseCommand(Month month, Year year) {
         this.month = month;
@@ -44,7 +51,7 @@ public class BreakdownExpenseCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, HistoryManager historyManager) {
         requireNonNull(model);
         List<Expense> filteredExpenseList = createFilteredExpense(model);
         Map<String, Double> expenseMap = breakdownExpenses(filteredExpenseList);
@@ -86,7 +93,7 @@ public class BreakdownExpenseCommand extends Command {
         Predicate<Expense> expenseYearPredicate = new ExpenseYearPredicate(year);
         List<Expense> yearFilteredExpense = model.filterExpenseByYear(expenseYearPredicate);
         List<Expense> filteredExpense = yearFilteredExpense.stream()
-                .filter(x -> expenseMonthPredicate.test(x)).collect(Collectors.toList());
+            .filter(x -> expenseMonthPredicate.test(x)).collect(Collectors.toList());
 
         return filteredExpense;
     }
@@ -107,7 +114,7 @@ public class BreakdownExpenseCommand extends Command {
             double tagPercentage = (expenseMap.get(tagName) / totalExpenseAmount) * 100;
             double roundedTagPercentage = Math.round(tagPercentage * 10) / 10.0;
             expenseMapString += "[" + tagName + ": $" + expenseMap.get(tagName) + ", "
-                    + roundedTagPercentage + "% ] \n";
+                + roundedTagPercentage + "% ] \n";
         }
         return expenseMapString;
     }
