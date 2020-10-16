@@ -219,7 +219,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Replaces serviceManager data with the data in {@code serviceManager}.
+     * Replaces expenseTracker data with the data in {@code expenseTracker}.
      */
     @Override
     public void setExpenseTracker(ReadOnlyExpenseTracker expenseTracker) {

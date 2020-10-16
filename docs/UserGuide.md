@@ -731,12 +731,14 @@ The table below shows a list of command parameters that will be used.
 | Parameter Name | Description | Example
 |---------|---------|---------
 |`DESCRIPTION`  | The description of the expense. <br><br> It must be alphanumeric words not more than 50 characters long. | E.g. Typing `conditioner` would mean an expense on a bottle of conditioner.
-|`IS_FIXED`| The indication of whether an expense is a fixed or variable expense. <br> <br> It must be in the format of `t` or `f` | E.g. Typing `t` would mean the expense is fixed <br> <br> E.g. Typing `f` would mean the expense is variable.
+|`IS_FIXED`| The indication of whether an expense is a fixed or variable expense. <br> <br> It must be in the format of `y` or `n`. | E.g. Typing `y` would mean the expense is fixed <br> <br> E.g. Typing `n` would mean the expense is variable.
 |`VALUE` | The value refers to the monetary value of the expense. <br> <br> It must consist only of numeric characters and a decimal point, and must have exactly two decimal places. | E.g. Typing `10.00` would mean the expense costs $10.00.
 |`DATE` | The date of the expense. <br> <br> It must be in the format of `dd-MM-yyyy`. | E.g. Typing `28-09-2020` would mean 28 September 2020.
 |`TAG` | The tag you want to attach to the expense. <br> <br> It must be a single alphanumeric word not more than 30 characters long. | E.g. Typing `equipment` would mean that the expense is tagged as an equipment.
 |`INDEX` | The index of the expense in the displayed list. <br> <br> It must be a valid index number. | E.g. Typing `2` would mean the expense with index-2 in the displayed list.
-|`ORDER` | The order refers to ascending or descending. <br> <br> It must be in the format of `asc` or `desc` | E.g. Typing `asc` would mean ascending.  <br> <br> E.g. Typing `desc` would mean descending.
+|`ORDER` | The order refers to ascending or descending. <br> <br> It must be in the format of `asc` or `desc`. | E.g. Typing `asc` would mean ascending.  <br> <br> E.g. Typing `desc` would mean descending.
+|`MONTH`| The month the expense is made. <br> <br> It must be a valid integer between 1 - 12. | E.g. Typing '12' would refer to the month of December. 
+|`YEAR`| The year the expense is made. <br> <br> It must be a valid year. | E.g. Typing '2020' would refer to the year 2020.
 
 ##### Add an Expense `addexp`
 
@@ -748,6 +750,7 @@ Format : `addexp d/DESCRIPTION f/IS_FIXED v/VALUE dt/DATE [t/TAG]`
 
 **:information_source: Note:**<br>
  
+* If no tag is entered, the expense will automatically be tagged under 'others'.
 * Refer to [Expense Tracker Command Parameters](#expense-tracker-command-parameters) for more details about each parameter.
 
 </div>
@@ -759,7 +762,7 @@ You just purchased a bottle of conditioner for your client's hair treatment toda
 You can follow the steps below to add the expense to GrAB3.
 
 Steps :
-1. Type `addexp d/conditioner f/f v/15.00 dt/28-10-2020 t/hairsupplies` in to _Command Box_.
+1. Type `addexp d/conditioner f/n v/15.00 dt/28-10-2020 t/hairsupplies` in to _Command Box_.
 2. Press `Enter` to execute.
 
 Outcome :
@@ -927,21 +930,30 @@ Outcome :
 
 You can use this command to breakdown expenses into their relevant categories, based on their 'tags'.
 
-Format : `breakdownexp`
+Format : `breakdownexp m/MONTH y/YEAR`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Note:**<br>
+ 
+* Refer to [Expense Tracker Command Parameters](#expense-tracker-command-parameters) for more details about each parameter.
+
+</div>
 
 Example :
 
-You wish to see which types of expenses incur the most cost to your business, to minimize future expenditure.
+You wish to see which types of expenses incur the most cost to your business in December 2020.
 
 You can follow the steps below to view a breakdown of your expenses.
 
 Steps :
-1. Type `breakdownexp` into the _Command Box_.
+1. Type `breakdownexp m/12 y/2020` into the _Command Box_.
 2. Press `Enter` to execute.
 
 Outcome :
 1. It will display a success message.
-2. GrAB3 will display a Pie Chart that categorizes expenses based on their 'tags', along with the total cost of all expenses in each category.
+2. GrAB3 will display a Pie Chart that categorizes expenses made in December 2020 based on their 'tags', 
+along with the total cost of all expenses in each category.
 
 ## Others
 
@@ -1059,14 +1071,14 @@ Example:
 ### Expense Tracker
 |Action | Format | Examples
 |---------------|------------------------------------------------------------------|------------------------------------------------------------------
-|**Add**        | `addexp d/DESCRIPTION f/IS_FIXED v/VALUE dt/DATE [t/TAG]`        | `addexp d/conditioner f/f v/15.00 dt/28-10-2020 t/hairsupplies`
+|**Add**        | `addexp d/DESCRIPTION f/IS_FIXED v/VALUE dt/DATE [t/TAG]`        | `addexp d/conditioner f/n v/15.00 dt/28-10-2020 t/hairsupplies`
 |**Edit**       | `INDEX [d/DESCRIPTION] [f/IS_FIXED] [v/VALUE] [dt/DATE] [t/TAG]` | `editexp 2 d/Eyelash Curler`
 |**Delete**     | `deleteexp INDEX`                                                | `deleteexp 3`
 |**Find**       | `[d/DESCRIPTION]* [dt/DATE]* [f/IS_FIXED]* [t/TAG]*`             | `findexp dt/08-09-2020`
 |**Sort**       | `sortexp ORDER`                                                  | `sortexp desc`
 |**List**       | `listexp`                                                        | 
 |**Clear**      | `clearexp`                                                       | 
-|**Breakdown**  | `breakdownexp`                                                   | 
+|**Breakdown**  | `breakdownexp m/MONTH y/YEAR`                                    | `breakdownexp m/12 y/2020`
 
 ### Others
 

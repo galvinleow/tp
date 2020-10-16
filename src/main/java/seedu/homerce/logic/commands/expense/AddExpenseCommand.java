@@ -28,7 +28,7 @@ public class AddExpenseCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Conditioner "
-            + PREFIX_ISFIXED + "f "
+            + PREFIX_ISFIXED + "n "
             + PREFIX_AMOUNT + "15.00 "
             + PREFIX_DATE + "29-01-2020 "
             + PREFIX_TAG + "hairsupplies ";

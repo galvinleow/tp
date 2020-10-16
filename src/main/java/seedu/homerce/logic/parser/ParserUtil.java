@@ -37,6 +37,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DURATION = "Duration should be a number in hours.";
     public static final String MESSAGE_INVALID_MONTH = "Month should be a number between 1 - 12";
     public static final String MESSAGE_INVALID_YEAR = "Year should be a positive valid number";
+    public static final int VALID_YEAR = 2020;
+    public static final int VALID_MONTH = 12;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -280,7 +282,7 @@ public class ParserUtil {
             return false;
         }
         int intYear = Integer.parseInt(year);
-        Year yearObject = Year.of(intYear);
+        Year yearObject = Year.of(VALID_YEAR);
         ValueRange range = yearObject.range(ChronoField.YEAR);
         return range.isValidIntValue(intYear);
     }
@@ -291,7 +293,7 @@ public class ParserUtil {
             return false;
         }
         int intMonth = Integer.parseInt(month);
-        Month monthObject = Month.of(intMonth);
+        Month monthObject = Month.of(VALID_MONTH);
         ValueRange range = monthObject.range(ChronoField.MONTH_OF_YEAR);
         return range.isValidIntValue(intMonth);
     }

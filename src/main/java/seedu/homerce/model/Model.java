@@ -181,7 +181,7 @@ public interface Model {
     ReadOnlyExpenseTracker getExpenseTracker();
 
     /**
-     * Replaces serviceManager data with the data in {@code serviceManager}.
+     * Replaces expenseTracker data with the data in {@code expenseTracker}.
      */
     void setExpenseTracker(ReadOnlyExpenseTracker expenseTracker);
 

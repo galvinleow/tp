@@ -46,7 +46,12 @@ public class AddExpenseCommandParser implements Parser<AddExpenseCommand> {
         IsFixed isFixed = ParserUtil.parseIsFixed(argMultimap.getValue(PREFIX_ISFIXED).get());
         Amount value = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+        Tag tag;
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+        } else {
+            tag = new Tag();
+        }
 
         Expense expense = new Expense(description, isFixed, value, date, tag);
 
