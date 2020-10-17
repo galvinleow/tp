@@ -290,7 +290,7 @@ public class ParserUtil {
 
     private static boolean isValidMonth(String month) {
         // Checks if its a String contains numbers only
-        if (!month.matches("\\d\\d")) {
+        if (!month.matches("\\d{1,2}")) {
             return false;
         }
         int intMonth = Integer.parseInt(month);
